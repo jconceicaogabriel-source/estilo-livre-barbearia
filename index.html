@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<!--
+  ARQUIVO: index.html
+  O QUE É ISSO: esta é a página principal (e única) do site da barbearia
+  fictícia "Estilo Livre". Ela usa o framework Bootstrap para o grid
+  (linhas e colunas), os componentes prontos (navbar, cards, carousel,
+  formulário) e para deixar tudo responsivo (funcionando bem em celular,
+  tablet e computador).
+
+  Os comentários abaixo explicam, passo a passo e da forma mais simples
+  possível, o que cada parte do código está fazendo. Ignoramos tudo que
+  não faz parte do que foi pedido no exercício, para manter o arquivo
+  organizado e fácil de estudar depois.
+-->
+<html lang="pt-BR">
+<!-- lang="pt-BR" avisa o navegador (e leitores de tela) que o conteúdo
+     desta página está em português do Brasil. -->
+
+<head>
+  <!-- charset UTF-8 garante que acentos e "ç" apareçam certinho -->
+  <meta charset="UTF-8">
+
+  <!-- Essa meta tag é OBRIGATÓRIA para o site ficar responsivo.
+       Ela diz para o navegador do celular: "use a largura real da tela
+       do aparelho, não finja que é um monitor grande". -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título que aparece na aba do navegador -->
+  <title>Estilo Livre | Barbearia</title>
+
+  <!-- Ícone pequeno que aparece na aba do navegador (favicon).
+       Aqui reaproveitamos o próprio logo em SVG. -->
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+
+  <!-- FONTES DO GOOGLE FONTS
+       "Oswald" é usada nos títulos (uma fonte condensada, forte, que
+       lembra placas antigas de barbearia) e "Inter" é usada no texto
+       normal (uma fonte simples e fácil de ler). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS DO BOOTSTRAP, vindo de um CDN (um servidor externo que hospeda
+       a biblioteca pronta). É esse arquivo que nos dá as classes prontas
+       como "container", "row", "col-md-4", "btn", "card", "navbar" etc. -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Nosso CSS PERSONALIZADO. Ele vem DEPOIS do Bootstrap de propósito:
+       assim, se alguma regra nossa tiver o mesmo "peso" de uma regra do
+       Bootstrap, a nossa vence, porque foi escrita por último. -->
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======================================================================
+       CABEÇALHO (header) + MENU DE NAVEGAÇÃO (nav)
+       O <header> é a tag semântica certa para o topo do site (logo + menu).
+       A navbar aqui é toda montada com classes prontas do Bootstrap.
+       ====================================================================== -->
+  <header class="header-site sticky-top">
+    <!-- "sticky-top" é uma classe do Bootstrap: ela faz o cabeçalho ficar
+         "grudado" no topo da tela, mesmo quando a pessoa rola a página. -->
+
+    <!-- navbar-expand-lg = "a partir do tamanho 'lg' (telas grandes), mostre
+         o menu todo espalhado; ABAIXO disso, esconda em um botão de menu
+         (aquele ícone de 3 tracinhos)". Isso é o que deixa o menu responsivo. -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-3">
+      <div class="container">
+
+        <!-- Logo + nome da barbearia, do lado esquerdo do menu -->
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
+          <img src="img/logo-estilo-livre.png" alt="Logo da barbearia Estilo Livre" width="44" height="44">
+          <span class="fonte-titulo texto-dourado fs-4">ESTILO LIVRE</span>
+        </a>
+
+        <!-- Este botão SÓ aparece em telas pequenas (o Bootstrap esconde
+             ele sozinho em telas grandes). Ao clicar, ele abre/fecha o
+             menu que fica escondido no celular.
+             "data-bs-toggle" e "data-bs-target" são atributos que o
+             JavaScript do Bootstrap lê para saber qual menu deve abrir. -->
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
+                aria-controls="menuPrincipal" aria-expanded="false"
+                aria-label="Abrir menu de navegação">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Esta div é o menu que se esconde/aparece no celular.
+             O id="menuPrincipal" precisa ser IGUAL ao data-bs-target
+             do botão acima, para o Bootstrap saber ligar os dois. -->
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <!-- "ms-lg-auto" empurra o menu para a direita, mas só em telas
+               grandes (ms = margin-start, "auto" = "empurra o máximo
+               possível para o lado"). -->
+          <ul class="navbar-nav ms-lg-auto mb-2 mb-lg-0 text-center">
+            <!-- Cada <li> é um item da lista do menu, e o <a> dentro dele
+                 é o link. O "href" com # aponta para o id de uma seção
+                 mais abaixo NESTA MESMA página (link âncora). -->
+            <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#sobre">Sobre Nós</a></li>
+            <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
+            <li class="nav-item"><a class="nav-link" href="#depoimentos">Depoimentos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ======================================================================
+       SEÇÃO HOME: banner de destaque + chamada para ação (CTA)
+       ====================================================================== -->
+  <section id="home" class="secao-hero">
+    <!-- "container" limita a largura do conteúdo e centraliza na tela,
+         em vez do texto esticar de ponta a ponta em monitores grandes. -->
+    <div class="container">
+      <!-- "row" cria uma linha do grid do Bootstrap. Dentro dela, colocamos
+           colunas (col-...). "align-items-center" centraliza as colunas
+           verticalmente uma em relação à outra. -->
+      <div class="row align-items-center g-5">
+
+        <!-- col-lg-6 = "em telas grandes (lg), ocupe 6 das 12 colunas do
+             grid" (ou seja, metade da largura). Em telas menores que
+             "lg", como não escrevemos outra classe, a coluna assume o
+             padrão do Bootstrap e ocupa a largura toda (12/12) sozinha,
+             empilhando com a outra coluna — é assim que o layout vira
+             "uma coisa embaixo da outra" no celular. -->
+        <div class="col-lg-6">
+          <h1 class="fonte-titulo display-4 fw-bold mb-3">
+            Estilo é <span class="texto-dourado">atitude</span>.
+          </h1>
+          <p class="lead text-secondary-emphasis mb-4">
+            Na Estilo Livre, corte, barba e cuidado com o cabelo se encontram
+            em um ambiente descontraído, pensado para quem gosta de cuidar
+            da própria imagem sem abrir mão do próprio estilo.
+          </p>
+          <!-- Botão de call-to-action. "btn" e "btn-lg" são classes do
+               Bootstrap (formato/tamanho do botão); "btn-dourado" é a
+               nossa classe personalizada (cor), definida no style.css. -->
+          <a href="#contato" class="btn btn-lg btn-dourado">Agende seu horário</a>
+        </div>
+
+        <div class="col-lg-6 text-center">
+          <!-- Imagem de destaque do banner (ilustração fictícia em SVG).
+               "alt" descreve a imagem para quem usa leitor de tela, ou
+               caso a imagem não carregue por algum motivo. -->
+          <img src="img/ferramentas-barbearia-03.png"
+               alt="Ilustração de ferramentas de barbearia: tesoura, pente e navalha"
+               class="hero-imagem">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       SEÇÃO SOBRE NÓS
+       ====================================================================== -->
+  <section id="sobre" class="secao-sobre">
+    <div class="container">
+      <div class="row align-items-center g-5">
+
+        <!-- "order-lg-2" muda a ORDEM da coluna só em telas grandes,
+             fazendo a imagem aparecer do lado direito no computador,
+             mesmo estando escrita primeiro no código. No celular
+             (onde não existe order-lg), ela simplesmente segue a ordem
+             normal do HTML. -->
+        <div class="col-lg-6 order-lg-2">
+          <img src="img/cadeira_barbeiro.png" alt="Ilustração de uma cadeira de barbeiro" class="sobre-imagem">
+        </div>
+
+        <div class="col-lg-6 order-lg-1">
+          <h2 class="fonte-titulo mb-2">Sobre Nós</h2>
+          <hr class="linha-decorativa">
+          <p class="text-secondary-emphasis">
+            A Estilo Livre nasceu da vontade de criar um espaço onde cada
+            cliente sai com mais do que um corte de cabelo: sai com
+            confiança. Misturamos técnicas clássicas de barbearia com um
+            olhar moderno, em um ambiente descontraído, feito para você
+            relaxar enquanto cuida do visual.
+          </p>
+          <p class="text-secondary-emphasis">
+            Aqui, estilo não é regra: é a liberdade de ser quem você é.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       SEÇÃO SERVIÇOS (cards)
+       ====================================================================== -->
+  <section id="servicos" class="secao-servicos">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fonte-titulo">Nossos Serviços</h2>
+        <hr class="linha-decorativa mx-auto">
+      </div>
+
+      <!-- "row-cols-1" = 1 card por linha no celular (empilhado).
+           "row-cols-md-3" = a partir do tamanho "md", mostra 3 cards por
+           linha. "g-4" adiciona um espaçamento (gap) entre os cards. -->
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        <!-- CARD 1: Corte de Cabelo -->
+        <div class="col">
+          <div class="card-servico">
+            <img src="img/icone_tesoura.png" alt="Ícone de tesoura">
+            <h3 class="fonte-titulo h5">Corte de Cabelo</h3>
+            <p class="text-secondary-emphasis">
+              Corte moderno ou clássico, feito sob medida para o formato do
+              seu rosto e para o seu estilo de vida.
+            </p>
+            <span class="preco">R$ 45</span>
+          </div>
+        </div>
+
+        <!-- CARD 2: Barba -->
+        <div class="col">
+          <div class="card-servico">
+            <img src="img/icone_navalha.png" alt="Ícone de navalha">
+            <h3 class="fonte-titulo h5">Barba</h3>
+            <p class="text-secondary-emphasis">
+              Alinhamento e desenho de barba com navalha, toalha quente e
+              produtos que cuidam da pele.
+            </p>
+            <span class="preco">R$ 35</span>
+          </div>
+        </div>
+
+        <!-- CARD 3: Hidratação -->
+        <div class="col">
+          <div class="card-servico">
+            <img src="img/icone_gota_produto.png" alt="Ícone de gota de produto">
+            <h3 class="fonte-titulo h5">Hidratação</h3>
+            <p class="text-secondary-emphasis">
+              Tratamento capilar profundo para fortalecer, hidratar e
+              devolver o brilho natural do cabelo.
+            </p>
+            <span class="preco">R$ 30</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       SEÇÃO DEPOIMENTOS (Carousel do Bootstrap)
+       Um "carousel" é aquele slide que troca sozinho (ou com setas),
+       mostrando um item de cada vez. O Bootstrap já traz pronto todo o
+       JavaScript que faz essa troca de slides acontecer — a gente só
+       precisa montar o HTML na estrutura certa, usando os atributos
+       "data-bs-..." que o script do Bootstrap sabe ler.
+       ====================================================================== -->
+  <section id="depoimentos" class="secao-depoimentos">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h2 class="fonte-titulo">O que dizem sobre nós</h2>
+        <hr class="linha-decorativa mx-auto">
+      </div>
+
+      <!-- id="carouselDepoimentos": esse nome é usado pelos botões de seta
+           e pelos indicadores (bolinhas) logo abaixo, para saberem a
+           qual carousel eles pertencem. -->
+      <div id="carouselDepoimentos" class="carousel slide" data-bs-ride="carousel">
+
+        <!-- Indicadores: as "bolinhas" clicáveis embaixo do carousel,
+             uma para cada depoimento. -->
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselDepoimentos" data-bs-slide-to="0"
+                  class="active" aria-current="true" aria-label="Depoimento 1"></button>
+          <button type="button" data-bs-target="#carouselDepoimentos" data-bs-slide-to="1"
+                  aria-label="Depoimento 2"></button>
+          <button type="button" data-bs-target="#carouselDepoimentos" data-bs-slide-to="2"
+                  aria-label="Depoimento 3"></button>
+        </div>
+
+        <!-- "carousel-inner" é a "caixa" que contém todos os slides.
+             Só um "carousel-item" fica visível de cada vez. -->
+        <div class="carousel-inner">
+
+          <!-- O primeiro item PRECISA ter a classe "active", ou o
+               carousel começa vazio (sem nenhum slide visível). -->
+          <div class="carousel-item active">
+            <div class="depoimento-cartao">
+              <img src="img/cliente_barbearia_1.png" alt="Foto ilustrativa do cliente Rafael M.">
+              <p class="depoimento-texto">
+                "Simplesmente o melhor corte que já fiz. Ambiente muito
+                agradável e a equipe entende exatamente o que a gente
+                quer."
+              </p>
+              <strong class="texto-dourado">Rafael M.</strong>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="depoimento-cartao">
+              <img src="img/cliente_julia_barbearia.png" alt="Foto ilustrativa da cliente Julia S.">
+              <p class="depoimento-texto">
+                "Levei meu filho pela primeira vez e foi uma experiência
+                ótima. Atendimento com muita paciência e capricho."
+              </p>
+              <strong class="texto-dourado">Julia S.</strong>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="depoimento-cartao">
+              <img src="img/cliente_pedro_barbearia.png" alt="Foto ilustrativa do cliente Pedro D.">
+              <p class="depoimento-texto">
+                "Virei cliente fixo depois da primeira vez. A barba nunca
+                ficou tão bem alinhada."
+              </p>
+              <strong class="texto-dourado">Pedro D.</strong>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Botão/seta para voltar ao slide anterior -->
+        <button class="carousel-control-prev" type="button"
+                data-bs-target="#carouselDepoimentos" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Depoimento anterior</span>
+        </button>
+
+        <!-- Botão/seta para avançar ao próximo slide -->
+        <button class="carousel-control-next" type="button"
+                data-bs-target="#carouselDepoimentos" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próximo depoimento</span>
+        </button>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       SEÇÃO CONTATO (formulário)
+       ====================================================================== -->
+  <section id="contato" class="secao-contato">
+    <div class="container">
+      <div class="row g-5">
+
+        <div class="col-lg-5">
+          <h2 class="fonte-titulo mb-2">Vamos marcar seu horário?</h2>
+          <hr class="linha-decorativa">
+          <p class="text-secondary-emphasis">
+            Preencha o formulário ao lado com seus dados e a sua mensagem
+            que retornaremos o mais rápido possível.
+          </p>
+          <p class="text-secondary-emphasis mb-1">📍 Rua do Estilo, 123 — Centro</p>
+          <p class="text-secondary-emphasis mb-1">📞 (11) 99999-0000</p>
+          <p class="text-secondary-emphasis">🕒 Seg. a Sáb., 9h às 19h</p>
+        </div>
+
+        <div class="col-lg-7">
+          <!-- Este é um exercício apenas de FRONT-END, então o formulário
+               não envia os dados para lugar nenhum de verdade (não existe
+               um servidor por trás dele). "action" e "method" ficam
+               guardados aqui como referência de como ficaria em um
+               projeto real, mas o botão não vai realmente enviar nada. -->
+          <form action="#" method="post" novalidate>
+
+            <!-- Campo NOME -->
+            <div class="mb-3">
+              <label for="campoNome" class="form-label">Nome</label>
+              <!-- "id" liga o campo ao "for" do label (clicar no texto do
+                   label foca automaticamente o campo). "name" é o nome
+                   que identificaria este dado se o formulário fosse
+                   enviado a um servidor de verdade. "required" impede o
+                   envio do formulário se o campo estiver vazio. -->
+              <input type="text" class="form-control" id="campoNome" name="nome"
+                     placeholder="Seu nome completo" required>
+            </div>
+
+            <!-- Campo E-MAIL -->
+            <div class="mb-3">
+              <label for="campoEmail" class="form-label">E-mail</label>
+              <!-- type="email" faz o navegador validar automaticamente se
+                   o texto digitado tem o formato de um e-mail (com @). -->
+              <input type="email" class="form-control" id="campoEmail" name="email"
+                     placeholder="seunome@email.com" required>
+            </div>
+
+            <!-- Campo MENSAGEM -->
+            <div class="mb-3">
+              <label for="campoMensagem" class="form-label">Mensagem</label>
+              <!-- <textarea> é como um <input>, mas para textos maiores,
+                   com várias linhas. "rows" define quantas linhas de
+                   altura ele mostra de início. -->
+              <textarea class="form-control" id="campoMensagem" name="mensagem"
+                        rows="4" placeholder="Conte um pouco do que você precisa..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-dourado">Enviar mensagem</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ======================================================================
+       RODAPÉ
+       ====================================================================== -->
+  <footer class="footer-site">
+    <div class="container">
+      <p class="mb-0">&copy; 2026 Estilo Livre — Todos os direitos reservados.</p>
+      <p class="mb-0">Projeto fictício desenvolvido como exercício do módulo de Bootstrap.</p>
+    </div>
+  </footer>
+
+
+  <!-- JAVASCRIPT DO BOOTSTRAP (o "bundle" já inclui tudo que ele precisa).
+       Colocamos essa tag lá no FINAL do <body> de propósito: assim, o
+       navegador já desenhou toda a página (HTML) antes de gastar tempo
+       baixando e executando o JavaScript, o que faz o site parecer
+       carregar mais rápido. É esse script que faz o menu do celular
+       abrir/fechar e o carousel funcionar. -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
