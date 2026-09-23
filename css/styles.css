@@ -1,0 +1,330 @@
+/* ==========================================================================
+   ARQUIVO: style.css
+   O QUE É ISSO: este arquivo guarda os estilos "extras" do site, ou seja,
+   tudo aquilo que o Bootstrap não faz sozinho (as cores da nossa marca,
+   a fonte escolhida, o tamanho do banner, etc).
+   O Bootstrap continua fazendo o trabalho pesado: grid (linhas e colunas),
+   botões, navbar, cards, carousel e formulário. Aqui só "afinamos" o visual.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. VARIÁVEIS DE COR (design tokens)
+   Uma "variável CSS" é tipo uma caixinha com um nome, onde guardamos um
+   valor (aqui, uma cor) para poder reutilizar em vários lugares do arquivo.
+   Assim, se um dia quisermos trocar o dourado por outra cor, mudamos em
+   um único lugar aqui embaixo, e o site inteiro atualiza sozinho.
+   O ":root" representa "o documento inteiro", então essas variáveis ficam
+   disponíveis em qualquer seletor lá embaixo.
+   -------------------------------------------------------------------------- */
+:root {
+  --cor-fundo-escuro: #1b1815;   /* fundo principal, um preto "quente" (não é preto puro) */
+  --cor-painel: #2a2420;         /* fundo dos cards e seções alternadas, um pouco mais claro */
+  --cor-dourado: #c9a227;        /* cor de destaque (latão), usada em títulos, ícones e bordas */
+  --cor-vinho: #7a2e2e;          /* segunda cor de destaque (couro), usada com moderação */
+  --cor-texto: #efe9df;          /* texto principal, um branco "osso" (mais suave que #fff) */
+  --cor-texto-suave: #a99c8b;    /* texto secundário, para legendas e parágrafos menos importantes */
+}
+
+
+/* --------------------------------------------------------------------------
+   2. AJUSTES GERAIS DA PÁGINA
+   -------------------------------------------------------------------------- */
+
+body {
+  /* background-color pinta o fundo de toda a página */
+  background-color: var(--cor-fundo-escuro);
+  /* color define a cor padrão do texto */
+  color: var(--cor-texto);
+  /* font-family escolhe a fonte do corpo do texto. Colocamos "Inter" primeiro
+     (a que queremos), e "sans-serif" depois, como plano B, caso a fonte
+     não carregue por algum motivo. */
+  font-family: 'Inter', sans-serif;
+}
+
+/* Os títulos (h1, h2, h3...) usam uma fonte diferente do corpo do texto,
+   para dar personalidade ao site. Isso é uma escolha de design: uma fonte
+   "condensada" e forte para títulos, lembrando placas antigas de barbearia. */
+h1, h2, h3, h4,
+.fonte-titulo {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 0.5px; /* espaçamento entre as letras, deixa o título mais elegante */
+}
+
+/* Classe pequena e reutilizável para pintar um texto de dourado.
+   Podemos usar essa classe em qualquer palavra que quisermos destacar. */
+.texto-dourado {
+  color: var(--cor-dourado);
+}
+
+/* Uma linha fina dourada, usada como "separador" decorativo entre título
+   e texto em algumas seções. width/height pequenos = uma linha bem fina. */
+.linha-decorativa {
+  width: 70px;
+  height: 3px;
+  background-color: var(--cor-dourado);
+  border: none;
+  margin: 16px 0 24px 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. CABEÇALHO / MENU (header + nav)
+   -------------------------------------------------------------------------- */
+
+.header-site {
+  /* "sticky" faz o cabeçalho "grudar" no topo da tela quando rolamos a página */
+  background-color: var(--cor-fundo-escuro);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.25); /* linha dourada bem transparente embaixo do menu */
+}
+
+/* Os links do menu, por padrão, ficam com uma cor meio apagada.
+   Isso ajuda o link da página atual (ou em hover) a se destacar mais. */
+.header-site .nav-link {
+  color: var(--cor-texto-suave);
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase; /* deixa o texto do menu em maiúsculas */
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* ":hover" quer dizer "quando o mouse passa por cima". Aqui, ao passar
+   o mouse em cima de um link do menu, ele fica dourado. */
+.header-site .nav-link:hover,
+.header-site .nav-link.active {
+  color: var(--cor-dourado);
+}
+
+
+/* --------------------------------------------------------------------------
+   4. SEÇÃO HOME / BANNER PRINCIPAL
+   -------------------------------------------------------------------------- */
+
+.secao-hero {
+  /* padding = "respiro" interno. Aqui damos bastante espaço em cima e embaixo
+     para o banner ocupar boa parte da tela quando a página abre. */
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: var(--cor-fundo-escuro);
+  /* overflow "hidden" evita que a imagem decorativa vaze para fora da seção */
+  overflow: hidden;
+}
+
+/* A imagem de destaque do banner. Damos uma sombra suave e cantos arredondados
+   para ela não ficar "colada" no fundo escuro. */
+.hero-imagem {
+  max-width: 100%;
+  height: auto; /* mantém a proporção da imagem ao redimensionar */
+  border-radius: 12px;
+}
+
+/* Botão de call-to-action (CTA) da home. Usamos as classes prontas do
+   Bootstrap (btn, btn-lg) e só sobrescrevemos a cor de fundo/borda aqui,
+   para usar a cor da nossa marca em vez do azul padrão do Bootstrap. */
+.btn-dourado {
+  background-color: var(--cor-dourado);
+  border-color: var(--cor-dourado);
+  color: var(--cor-fundo-escuro);
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.75rem 2rem;
+}
+
+/* :hover + :focus = quando passa o mouse OU quando o botão está selecionado
+   pelo teclado (importante para acessibilidade). Escurecemos um pouco o
+   dourado para dar feedback visual de que o botão é clicável. */
+.btn-dourado:hover,
+.btn-dourado:focus {
+  background-color: #b4901f;
+  border-color: #b4901f;
+  color: var(--cor-fundo-escuro);
+}
+
+
+/* --------------------------------------------------------------------------
+   5. SEÇÃO SOBRE NÓS
+   -------------------------------------------------------------------------- */
+
+.secao-sobre {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.sobre-imagem {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+}
+
+
+/* --------------------------------------------------------------------------
+   6. SEÇÃO SERVIÇOS (cards)
+   -------------------------------------------------------------------------- */
+
+.secao-servicos {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: var(--cor-painel); /* seção com fundo levemente mais claro, para variar do resto */
+}
+
+/* Cada "card" é uma caixinha (o Bootstrap já cuida do formato básico).
+   Aqui só trocamos a cor de fundo/borda para combinar com o tema escuro,
+   já que por padrão o card do Bootstrap é branco. */
+.card-servico {
+  background-color: var(--cor-fundo-escuro);
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  border-radius: 10px;
+  padding: 2rem 1.5rem;
+  height: 100%; /* faz todos os cards da mesma linha ficarem com a mesma altura */
+  text-align: center;
+  /* "transition" faz a mudança de sombra acontecer suavemente, em vez de
+     "pulinho" instantâneo, quando o mouse passa por cima do card. */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-servico:hover {
+  transform: translateY(-6px); /* o card "sobe" 6px, dando sensação de destaque */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+}
+
+.card-servico img {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 1.25rem;
+}
+
+.card-servico .preco {
+  color: var(--cor-dourado);
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.25rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. SEÇÃO DEPOIMENTOS (Carousel do Bootstrap)
+   O carousel em si (setas, transição de slide) já vem pronto do Bootstrap.
+   Aqui só estilizamos o "cartão" de depoimento dentro de cada slide.
+   -------------------------------------------------------------------------- */
+
+.secao-depoimentos {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.depoimento-cartao {
+  max-width: 650px;
+  margin: 0 auto; /* "0 auto" centraliza o elemento horizontalmente */
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.depoimento-cartao img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; /* 50% transforma a imagem quadrada em um círculo */
+  margin-bottom: 1rem;
+  border: 2px solid var(--cor-dourado);
+}
+
+.depoimento-texto {
+  font-style: italic;
+  color: var(--cor-texto-suave);
+  font-size: 1.1rem;
+}
+
+/* Deixamos as bolinhas (indicadores) e as setas do carousel douradas,
+   para combinar com o resto do site em vez do preto/branco padrão. */
+.carousel-indicators [data-bs-target] {
+  background-color: var(--cor-dourado);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  /* "filter" aqui tinge o ícone de setas (que é uma imagem SVG interna do
+     Bootstrap) com um tom dourado, para não ficar destoando do tema. */
+  filter: invert(70%) sepia(60%) saturate(400%) hue-rotate(360deg);
+}
+
+
+/* --------------------------------------------------------------------------
+   8. SEÇÃO CONTATO (formulário)
+   -------------------------------------------------------------------------- */
+
+.secao-contato {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: var(--cor-painel);
+}
+
+/* Os campos de formulário do Bootstrap (.form-control) vêm brancos por
+   padrão. Como nosso site é escuro, precisamos trocar fundo, texto e
+   borda para eles ficarem legíveis. */
+.secao-contato .form-control {
+  background-color: var(--cor-fundo-escuro);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  color: var(--cor-texto);
+}
+
+/* Quando o campo está com foco em cima do fundo escuro, o campo continua
+   com o mesmo fundo escuro (senão o Bootstrap volta ele pro branco). */
+.secao-contato .form-control:focus {
+  background-color: var(--cor-fundo-escuro);
+  color: var(--cor-texto);
+  border-color: var(--cor-dourado);
+  box-shadow: 0 0 0 0.2rem rgba(201, 162, 39, 0.25);
+}
+
+.secao-contato label {
+  color: var(--cor-texto-suave);
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+
+/* --------------------------------------------------------------------------
+   9. RODAPÉ
+   -------------------------------------------------------------------------- */
+
+.footer-site {
+  background-color: var(--cor-fundo-escuro);
+  border-top: 1px solid rgba(201, 162, 39, 0.25);
+  color: var(--cor-texto-suave);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   10. MEDIA QUERIES (deixando o site responsivo "na mão")
+   O Bootstrap já resolve a maior parte da responsividade sozinho, através
+   das classes de grid (col-12, col-md-6, etc). Mas aqui embaixo mostramos
+   como criar nossas próprias regras que só valem para telas pequenas,
+   ajustando detalhes que o Bootstrap não sabe que são "nossos".
+
+   "@media (max-width: 767.98px)" quer dizer: "aplique este bloco de
+   estilos SOMENTE quando a tela tiver até 767.98 pixels de largura",
+   ou seja, em celulares e telas pequenas (é o mesmo ponto de corte que o
+   Bootstrap usa entre "sm" e "md").
+   -------------------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  .secao-hero,
+  .secao-sobre,
+  .secao-servicos,
+  .secao-depoimentos,
+  .secao-contato {
+    /* em telas pequenas, diminuímos o respiro vertical das seções,
+       porque não temos tanto espaço de tela sobrando */
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .card-servico {
+    margin-bottom: 1.5rem; /* mais espaço entre os cards quando eles empilham */
+  }
+}
